@@ -1,0 +1,17 @@
+{
+    "name": "ydl/jd-cps",
+    "authors": [
+        {
+            "name": "deliangyang",
+            "email": "623601391@qq.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "JdCps\\": "./src"
+        }
+    }
+}
