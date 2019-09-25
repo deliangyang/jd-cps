@@ -44,6 +44,14 @@ abstract class BaseRequest
 
     abstract protected function getParams(): array;
 
-    abstract protected function getResponse(string $response): array ;
+    public function getResponse(string $response): array
+    {
+        $result = json_decode($response, true);
+        $key = str_replace('.', '_', $this->method) . '_response';
+        if (!isset($result[$key]['result'])) {
+            return [];
+        }
+        return json_decode($result[$key]['result'], true);
+    }
 
 }
