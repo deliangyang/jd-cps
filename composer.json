@@ -1,5 +1,10 @@
 {
     "name": "ydl/jd-cps",
+    "description": "This is php sdk of jingdong cps",
+    "type": "library",
+    "homepage": "https://github.com/deliangyang/jd-cps",
+    "keywords": ["jingdong", "CPS", "php", "sdk"],
+    "license": "MIT",
     "authors": [
         {
             "name": "deliangyang",
@@ -8,7 +13,8 @@
     ],
     "require": {
         "guzzlehttp/guzzle": "^6.3",
-        "ext-json": "*"
+        "ext-json": "*",
+        "php": "^7.1"
     },
     "autoload": {
         "psr-4": {
