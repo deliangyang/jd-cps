@@ -8,15 +8,13 @@ abstract class BaseRequest
 {
     protected $method;
 
-    protected $app_key = '';
-
     protected $format = 'json';
 
     protected $v = '1.0';
 
     protected $sign_method = 'md5';
 
-    public function request()
+    public function request(string $appKey, string $appSecret)
     {
         $client = new Client([
             'base_uri' => 'https://router.jd.com',
@@ -26,24 +24,26 @@ abstract class BaseRequest
             'v' => $this->v,
             'method' => $this->method,
             'timestamp' => date('Y-m-d H:i:s'),
-            'app_key' => $this->app_key,
-            'access_token' => '',
+            'app_key' => $appKey,
             'sign_method' => $this->sign_method,
             'format' => $this->format,
             'param_json' => json_encode($this->getParams())
         ];
         ksort($query);
-        $sign_str = [];
+        $sign_str = '';
         foreach ($query as $k => $v) {
-            $sign_str[] = sprintf('%s=%s', $k, $v);
+            $sign_str .= $k . $v;
         }
-        $query['sign'] = md5(implode('&', $sign_str));
+        $query['sign'] = strtoupper(md5($appSecret . $sign_str . $appSecret));
         $resp = $client->get('/api', [
             'query' => $query,
         ]);
-        return $resp->getBody()->getContents();
+        return $this->getResponse(
+            $resp->getBody()->getContents());
     }
 
-    abstract protected function getParams(): array ;
+    abstract protected function getParams(): array;
+
+    abstract protected function getResponse(string $response): array ;
 
 }
