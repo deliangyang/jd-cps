@@ -17,3 +17,10 @@ $request->setEliteId(11);
 $res = $client->execute($request);
 var_dump($res);
 ```
+
+
+### How to install it?
+
+```
+composer require ydl/jd-cps
+```
